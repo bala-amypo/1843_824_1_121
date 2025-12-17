@@ -7,6 +7,10 @@ import jakarta.persistence.GeneratedType;
 
 @Entity
 public class User{
+     public enum Role{
+        ADMIN,
+        STAFF
+    }
     @Id
     @GeneratedValue(strategy=GeneratedType.Identity)
     private Long id;
@@ -19,11 +23,7 @@ public class User{
 
     private Role role=Role.STAFF;
 
-    public enum Role{
-        ADMIN,
-        STAFF
-    }
-
+   
      public Long getId() {
         return id;
     }
