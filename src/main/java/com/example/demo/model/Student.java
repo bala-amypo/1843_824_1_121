@@ -3,7 +3,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-import jakarta.persistence.Column
+import jakarta.persistence.Column;
 
 @Entity
 public class Student{
@@ -68,5 +68,6 @@ public class Student{
         this.year = year;
     }
 
-    public 
+    public Student(Long id,String rollNumber,String name,String department,Integer year){};
+    public Student(){};
 }
