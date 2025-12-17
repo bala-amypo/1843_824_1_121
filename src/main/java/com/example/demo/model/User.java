@@ -17,7 +17,12 @@ public class User{
     
     private String password;
 
+    private Role role=Role.STAFF;
 
+    public enum Role{
+        ADMIN,
+        STAFF
+    }
 
      public Long getId() {
         return id;
