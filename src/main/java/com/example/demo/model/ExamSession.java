@@ -54,5 +54,6 @@ public class ExamSession{
         this.examTime = examTime;
     }
 
-    public ExamSession(Long id,String courseCode,LocalDate examDate)
+    public ExamSession(Long id,String courseCode,LocalDate examDate,String examTime){};
+    public ExamSession(){};
 }
