@@ -8,8 +8,8 @@ import jakarta.persistence.GeneratedType;
 public class User{
     @Id
     @GeneratedValue(strategy=GeneratedType.Identity)
-    private int id;
-    
+    private Long id;
+
     private String name;
     @Column(unique=true)
     private String email;
