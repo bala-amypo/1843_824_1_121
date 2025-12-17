@@ -67,6 +67,8 @@ public class ExamRoom{
         this.columns = columns;
     }
 
-    public ExamRoom(Long id,String roomNumber,Integer capacity,Integer rows,Integer columns){};
+    public ExamRoom(Long id,String roomNumber,Integer capacity,Integer rows,Integer columns){
+    
+    };
     public ExamRoom(){};
 }
