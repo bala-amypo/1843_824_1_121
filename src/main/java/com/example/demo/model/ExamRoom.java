@@ -39,12 +39,12 @@ public class ExamRoom{
 
    
     public Integer getCapacity() {
-        return Capacity;
+        return capacity;
     }
 
 
     public void setCapacity(Integer Capacity) {
-        this.Capacity = Capacity;
+        this.capacity = capacity;
     }
 
    
@@ -67,5 +67,6 @@ public class ExamRoom{
         this.columns = columns;
     }
 
-    public ExamRoom(Long id,String roomNumber,Integer Capacity)
+    public ExamRoom(Long id,String roomNumber,Integer capacity,Integer rows,Integer columns){};
+    public ExamRoom(){};
 }
