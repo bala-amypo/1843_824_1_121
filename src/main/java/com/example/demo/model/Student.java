@@ -17,7 +17,7 @@ public class Student{
     private String name;
     private String department;
 
-    @Size(min=1,max=1)
+    @Size(min=1,max=5,message="year must be within 1-5")
     private Integer year;
 
     public Long getId() {
