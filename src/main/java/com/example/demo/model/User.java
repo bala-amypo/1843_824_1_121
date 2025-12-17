@@ -12,7 +12,7 @@ public class User{
         STAFF
     }
     @Id
-    @GeneratedValue(strategy=GenerationType.Identity)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
     private String name;
@@ -21,7 +21,7 @@ public class User{
     
     private String password;
 
-    private Role role=Role.STAFF;
+    private String role=Role.STAFF;
 
    
      public Long getId() {
@@ -69,6 +69,6 @@ public class User{
         this.password=password;
         this.role=role;
     }
-    public User();
+    public User(){};
 
 }
