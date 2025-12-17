@@ -3,7 +3,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GeneratedType;
+import jakarta.persistence.GenerationType;
 
 @Entity
 public class User{
@@ -12,7 +12,7 @@ public class User{
         STAFF
     }
     @Id
-    @GeneratedValue(strategy=GeneratedType.Identity)
+    @GeneratedValue(strategy=GenerationType.Identity)
     private Long id;
 
     private String name;
