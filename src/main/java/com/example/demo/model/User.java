@@ -5,4 +5,7 @@ import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GeneratedType
 
 @Entity
-public class 
+public class User{
+    @Id
+    
+}
