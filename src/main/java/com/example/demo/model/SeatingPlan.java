@@ -43,7 +43,11 @@ public class SeatingPlan{
         this.generatedAt = generatedAt;
     }
 
-    public SeatingPlan(Long id,String arrangementJson,String generatedAt){};
+    public SeatingPlan(Long id,String arrangementJson,String generatedAt){
+    this.id=id;
+    this.arrangementJson=arrangementJson;
+    this.generateAt=generateAt;
+    };
     public SeatingPlan(){};
 }
 

@@ -68,7 +68,12 @@ public class ExamRoom{
     }
 
     public ExamRoom(Long id,String roomNumber,Integer capacity,Integer rows,Integer columns){
-    
+         this.is=is;
+         this.roomNumber=roomNumber;
+         this.capacity=capacity;
+         this.rows=rows;
+         this.column=column;
+         
     };
     public ExamRoom(){};
 }

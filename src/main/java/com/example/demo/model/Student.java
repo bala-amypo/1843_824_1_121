@@ -68,6 +68,10 @@ public class Student{
         this.year = year;
     }
 
-    public Student(Long id,String rollNumber,String name,String department,Integer year){};
+    public Student(Long id,String rollNumber,String name,String department,Integer year){
+    this.id=id;
+    this.rollNumber=rollNumber;
+    this.name=name;
+    this.};
     public Student(){};
 }
