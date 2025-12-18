@@ -46,7 +46,7 @@ public class SeatingPlan{
     public SeatingPlan(Long id,String arrangementJson,String generatedAt){
     this.id=id;
     this.arrangementJson=arrangementJson;
-    this.generateAt=generateAt;
+    this.generatedAt=generatedAt;
     };
     public SeatingPlan(){};
 }

@@ -43,7 +43,7 @@ public class ExamRoom{
     }
 
 
-    public void setCapacity(Integer Capacity) {
+    public void setCapacity(Integer capacity) {
         this.capacity = capacity;
     }
 
@@ -68,12 +68,12 @@ public class ExamRoom{
     }
 
     public ExamRoom(Long id,String roomNumber,Integer capacity,Integer rows,Integer columns){
-         this.is=is;
+         this.id=id;
          this.roomNumber=roomNumber;
          this.capacity=capacity;
          this.rows=rows;
-         this.column=column;
-         
+         this.columns=columns;
+
     };
     public ExamRoom(){};
 }

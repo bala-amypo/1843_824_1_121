@@ -58,7 +58,7 @@ public class ExamSession{
     this.id=id;
     this.courseCode=courseCode;
     this.examDate=examDate;
-    this.examTime=examtime;
+    this.examTime=examTime;
     };
     public ExamSession(){};
 }
