@@ -72,6 +72,8 @@ public class Student{
     this.id=id;
     this.rollNumber=rollNumber;
     this.name=name;
-    this.};
+    this.department=department;
+    this.year=year;
+    };
     public Student(){};
 }
