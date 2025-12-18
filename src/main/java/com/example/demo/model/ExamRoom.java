@@ -16,6 +16,7 @@ public class ExamRoom{
 
     private Integer capacity;
     private Integer rows;
+    @Column(name="no_of_columns")
     private Integer columns;
     
      public Long getId() {
