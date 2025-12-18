@@ -16,7 +16,7 @@ public class ExamRoom{
 
     private Integer capacity;
     private Integer rows;
-    @Column(name="no_of_columns")
+
     private Integer columns;
     
      public Long getId() {
@@ -75,6 +75,6 @@ public class ExamRoom{
          this.rows=rows;
          this.columns=columns;
 
-    };
-    public ExamRoom(){};
+    }
+    public ExamRoom(){}
 }
