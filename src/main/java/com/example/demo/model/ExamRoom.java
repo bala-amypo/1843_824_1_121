@@ -28,8 +28,6 @@ public class ExamRoom {
 
     public ExamRoom() {
     }
-
-    // ✅ Parameterized constructor (WITHOUT id)
     public ExamRoom(String roomNumber, Integer capacity, Integer rows, Integer columns) {
         this.roomNumber = roomNumber;
         this.capacity = capacity;
