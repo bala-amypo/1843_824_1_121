@@ -1,9 +1,9 @@
 package com.example.demo.service;
 
-import com.example.demo.model.Student;
 import java.util.List;
+import com.example.demo.model.Student;
 
-public interface UserService {
-    User addStudent(Student student);
-    List<student> getAllStudents();
+public interface StudentService {
+    Student addStudent(Student student);
+    List<Student> getAllStudents();
 }

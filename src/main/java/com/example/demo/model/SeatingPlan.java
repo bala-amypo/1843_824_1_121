@@ -1,53 +1,20 @@
-package com.example.demo.model;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import java.time.LocalDateTime;
-
 @Entity
-public class SeatingPlan{
+public class SeatingPlan {
+
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String arrangementJson;
-    private LocalDateTime generatedAt;
+    private Long sessionId;
+    private String planDetails;
 
-    public Long getId() {
-        return id;
-    }
+    public SeatingPlan() {}
 
-   
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public Long getId() { return id; }
 
-    
-    public String getArrangementJson() {
-        return arrangementJson;
-    }
+    public Long getSessionId() { return sessionId; }
+    public void setSessionId(Long sessionId) { this.sessionId = sessionId; }
 
-    
-    public void setArrangementJson(String arrangementJson) {
-        this.arrangementJson = arrangementJson;
-    }
-
-    
-    public LocalDateTime getGeneratedAt() {
-        return generatedAt;
-    }
-
-   
-    public void setGeneratedAt(LocalDateTime generatedAt) {
-        this.generatedAt = generatedAt;
-    }
-
-    public SeatingPlan(Long id,String arrangementJson,LocalDateTime generatedAt){
-    this.id=id;
-    this.arrangementJson=arrangementJson;
-    this.generatedAt=generatedAt;
-    };
-    public SeatingPlan(){};
+    public String getPlanDetails() { return planDetails; }
+    public void setPlanDetails(String planDetails) { this.planDetails = planDetails; }
 }
-
