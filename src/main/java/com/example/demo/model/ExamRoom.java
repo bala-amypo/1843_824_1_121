@@ -74,6 +74,6 @@ public class ExamRoom{
          this.rows=rows;
          this.columns=columns;
 
-    };
-    public ExamRoom(){};
+    }
+    public ExamRoom(){}
 }
