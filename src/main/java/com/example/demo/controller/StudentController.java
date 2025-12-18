@@ -1,29 +1,29 @@
-package com.example.demo.controller;
+// package com.example.demo.controller;
 
-import org.springframework.web.bind.annotation.*;
-import java.util.List;
-import com.example.demo.model.Student;
-import com.example.demo.service.StudentService;
+// import org.springframework.web.bind.annotation.*;
+// import java.util.List;
+// import com.example.demo.model.Student;
+// import com.example.demo.service.StudentService;
 
-@RestController
-@RequestMapping("/students")
-public class StudentController {
+// @RestController
+// @RequestMapping("/students")
+// public class StudentController {
 
-    private final StudentService studentService;
+//     private final StudentService studentService;
 
-    public StudentController(StudentService studentService) {
-        this.studentService = studentService;
-    }
+//     public StudentController(StudentService studentService) {
+//         this.studentService = studentService;
+//     }
 
     
-    @PostMapping
-    public Student addStudent(@RequestBody Student student) {
-        return studentService.addStudent(student);
-    }
+//     @PostMapping
+//     public Student addStudent(@RequestBody Student student) {
+//         return studentService.addStudent(student);
+//     }
 
   
-    @GetMapping
-    public List<Student> getAllStudents() {
-        return studentService.getAllStudents();
-    }
-}
+//     @GetMapping
+//     public List<Student> getAllStudents() {
+//         return studentService.getAllStudents();
+//     }
+// }

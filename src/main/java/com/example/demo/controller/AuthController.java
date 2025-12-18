@@ -12,7 +12,7 @@ import com.example.demo.service.UserService;
 
 public class AuthController {
 
-    private final UserService userService;
+    UserService userService;
 
     public AuthController(UserService userService) {
         this.userService = userService;
