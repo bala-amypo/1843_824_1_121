@@ -14,9 +14,9 @@ public class ExamRoom{
     @Column(unique=true)
     private String roomNumber;
 
-    private Integer capacity;
-    private Integer rows;
-    private Integer columns;
+    private Long capacity;
+    private Long rows;
+    private Long columns;
     
      public Long getId() {
         return id;
@@ -38,36 +38,36 @@ public class ExamRoom{
     }
 
    
-    public Integer getCapacity() {
+    public Long getCapacity() {
         return capacity;
     }
 
 
-    public void setCapacity(Integer capacity) {
+    public void setCapacity(Long capacity) {
         this.capacity = capacity;
     }
 
    
-    public Integer getRows() {
+    public Long getRows() {
         return rows;
     }
 
    
-    public void setRows(Integer rows) {
+    public void setRows(Long rows) {
         this.rows = rows;
     }
 
    
-    public Integer getColumns() {
+    public Long getColumns() {
         return columns;
     }
 
   
-    public void setColumns(Integer columns) {
+    public void setColumns(Long columns) {
         this.columns = columns;
     }
 
-    public ExamRoom(Long id,String roomNumber,Integer capacity,Integer rows,Integer columns){
+    public ExamRoom(Long id,String roomNumber,Long capacity,Long rows,Long columns){
          this.id=id;
          this.roomNumber=roomNumber;
          this.capacity=capacity;
