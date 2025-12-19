@@ -28,6 +28,13 @@ public class ExamRoom {
 
     public ExamRoom() {
     }
+    @PrePersist
+    @PreUpdate
+    private void calculateCapacity() {
+        if (rows != null && columns != null) {
+            this.capacity = rows * columns;
+        }
+    }
     public ExamRoom(String roomNumber, Integer capacity, Integer rows, Integer columns) {
         this.roomNumber = roomNumber;
         this.capacity = capacity;
