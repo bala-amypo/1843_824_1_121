@@ -1,11 +1,11 @@
 package com.example.demo.service.impl;
 
 import org.springframework.stereotype.Service;
-
 import com.example.demo.exception.ApiException;
 import com.example.demo.model.ExamRoom;
 import com.example.demo.repository.ExamRoomRepository;
 import com.example.demo.service.ExamRoomService;
+import java.util.List;
 
 @Service
 public class ExamRoomServiceImpl implements ExamRoomService {
@@ -18,12 +18,14 @@ public class ExamRoomServiceImpl implements ExamRoomService {
 
     @Override
     public ExamRoom addRoom(ExamRoom room) {
-
-        // 🔹 Rule: roomNumber must be unique
         if (examRoomRepository.findByRoomNumber(room.getRoomNumber()).isPresent()) {
             throw new ApiException("room number exists");
         }
-
         return examRoomRepository.save(room);
+    }
+
+    @Override
+    public List<ExamRoom> getAllRooms() {
+        return examRoomRepository.findAll();
     }
 }
