@@ -1,9 +1,8 @@
 package com.example.demo.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-
 import com.example.demo.model.ExamSession;
 
-public interface ExamSessionRepository extends JpaRepository<ExamSession, Long>{
-   
+public interface ExamSessionRepository extends JpaRepository<ExamSession, Long> {
+    // No extra code needed, JpaRepository provides save(), findById(), findAll(), etc.
 }
