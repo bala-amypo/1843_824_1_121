@@ -61,6 +61,8 @@ public class ExamSession{
         this.examTime = examTime;
     }
 
+    public 
+
     public ExamSession(Long id,String courseCode,LocalDate examDate,String examTime){
     this.id=id;
     this.courseCode=courseCode;
