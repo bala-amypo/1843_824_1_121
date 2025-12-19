@@ -17,7 +17,7 @@ public class ExamSession {
 
     private String examTime;
 
-    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST}) // handle new/existing students
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}) // handles new/existing students
     @JoinTable(
         name = "exam_session_students",
         joinColumns = @JoinColumn(name = "exam_session_id"),
@@ -25,8 +25,10 @@ public class ExamSession {
     )
     private List<Student> students;
 
+    // Default constructor
     public ExamSession() {}
 
+    // Constructor with all fields
     public ExamSession(Long id, String courseCode, LocalDate examDate, String examTime, List<Student> students) {
         this.id = id;
         this.courseCode = courseCode;
@@ -35,7 +37,7 @@ public class ExamSession {
         this.students = students;
     }
 
-    // Getters & Setters...
+    // Getters and Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
