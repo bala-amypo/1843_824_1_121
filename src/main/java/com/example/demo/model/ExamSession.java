@@ -14,6 +14,13 @@ public class ExamSession{
     private String courseCode;
     private LocalDate examDate;
     private String examTime;
+    @ManyToMany
+    @JoinTable(
+        name = "exam_session_students",
+        joinColumns = @JoinColumn(name = "exam_session_id"),
+        inverseJoinColumns = @JoinColumn(name = "student_id")
+    )
+    private List<Student> students;
 
     public Long getId() {
         return id;
