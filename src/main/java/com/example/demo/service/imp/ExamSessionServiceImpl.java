@@ -6,7 +6,7 @@ import com.example.demo.repository.ExamSessionRepository;
 import com.example.demo.model.ExamSession;
 
 @Service
-public class ExamSessionService {
+public class ExamSessionServiceImpl {
 
     @Autowired
     private ExamSessionRepository examSessionRepository;
