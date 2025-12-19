@@ -1,4 +1,4 @@
-package com.example.demo.model;
+package com.example.demo.entity;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
@@ -11,11 +11,9 @@ public class SeatingPlan {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "session_id", nullable = false)
     private ExamSession examSession;
 
     @ManyToOne
-    @JoinColumn(name = "room_id", nullable = false)
     private ExamRoom room;
 
     @Column(columnDefinition = "TEXT")
@@ -28,7 +26,7 @@ public class SeatingPlan {
         this.generatedAt = LocalDateTime.now();
     }
 
-    public SeatingPlan() {}
+    // ---------- Getters & Setters ----------
 
     public Long getId() {
         return id;
