@@ -1,12 +1,6 @@
 package com.example.demo.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.JoinColumn;
+import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -23,7 +17,7 @@ public class ExamSession {
 
     private String examTime;
 
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST}) // handle new/existing students
     @JoinTable(
         name = "exam_session_students",
         joinColumns = @JoinColumn(name = "exam_session_id"),
@@ -31,10 +25,8 @@ public class ExamSession {
     )
     private List<Student> students;
 
-    // No-arg constructor
     public ExamSession() {}
 
-    // All-args constructor
     public ExamSession(Long id, String courseCode, LocalDate examDate, String examTime, List<Student> students) {
         this.id = id;
         this.courseCode = courseCode;
@@ -43,7 +35,7 @@ public class ExamSession {
         this.students = students;
     }
 
-    // Getters and Setters
+    // Getters & Setters...
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
