@@ -1,5 +1,7 @@
 package com.example.demo.controller;
 
+import java.util.List;
+
 import org.springframework.web.bind.annotation.*;
 
 import com.example.demo.model.SeatingPlan;
@@ -15,19 +17,21 @@ public class SeatingPlanController {
         this.seatingPlanService = seatingPlanService;
     }
 
+    // POST /plans/generate/{sessionId}
     @PostMapping("/generate/{sessionId}")
     public SeatingPlan generatePlan(@PathVariable Long sessionId) {
         return seatingPlanService.generatePlan(sessionId);
     }
 
+    // GET /plans/{planId}
     @GetMapping("/{planId}")
     public SeatingPlan getPlan(@PathVariable Long planId) {
         return seatingPlanService.getPlan(planId);
     }
 
-    // ✅ FIXED METHOD
+    // GET /plans/session/{sessionId}
     @GetMapping("/session/{sessionId}")
-    public SeatingPlan getPlanBySession(@PathVariable Long sessionId) {
-        return seatingPlanService.getPlanBySession(sessionId);
+    public List<SeatingPlan> getPlansBySession(@PathVariable Long sessionId) {
+        return seatingPlanService.getPlansBySession(sessionId);
     }
 }
