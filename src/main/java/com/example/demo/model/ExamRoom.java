@@ -1,74 +1,74 @@
-// package com.example.demo.model;
+package com.example.demo.model;
 
-// import jakarta.persistence.Entity;
-// import jakarta.persistence.Id;
-// import jakarta.persistence.GeneratedValue;
-// import jakarta.persistence.GenerationType;
-// import jakarta.persistence.Column;
-// import jakarta.persistence.Table;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Table;
 
-// @Entity
-// @Table(name = "exam_room")
-// public class ExamRoom {
+@Entity
+@Table(name = "exam_room")
+public class ExamRoom {
 
-//     @Id
-//     @GeneratedValue(strategy = GenerationType.IDENTITY)
-//     private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-//     @Column(name = "room_number", unique = true, nullable = false)
-//     private String roomNumber;
+    @Column(name = "room_number", unique = true, nullable = false)
+    private String roomNumber;
 
-//     private Integer capacity;
+    private Integer capacity;
 
-//     @Column(name = "no_of_rows")
-//     private Integer rows;
+    @Column(name = "no_of_rows")
+    private Integer rows;
 
-//     @Column(name = "no_of_columns")
-//     private Integer columns;
+    @Column(name = "no_of_columns")
+    private Integer columns;
 
-//     public ExamRoom() {
-//     }
-//     public ExamRoom(String roomNumber, Integer capacity, Integer rows, Integer columns) {
-//         this.roomNumber = roomNumber;
-//         this.capacity = capacity;
-//         this.rows = rows;
-//         this.columns = columns;
-//     }
+    public ExamRoom() {
+    }
+    public ExamRoom(String roomNumber, Integer capacity, Integer rows, Integer columns) {
+        this.roomNumber = roomNumber;
+        this.capacity = capacity;
+        this.rows = rows;
+        this.columns = columns;
+    }
 
-//     // Getters & Setters
-//     public Long getId() {
-//         return id;
-//     }
+    // Getters & Setters
+    public Long getId() {
+        return id;
+    }
 
-//     public String getRoomNumber() {
-//         return roomNumber;
-//     }
+    public String getRoomNumber() {
+        return roomNumber;
+    }
 
-//     public void setRoomNumber(String roomNumber) {
-//         this.roomNumber = roomNumber;
-//     }
+    public void setRoomNumber(String roomNumber) {
+        this.roomNumber = roomNumber;
+    }
 
-//     public Integer getCapacity() {
-//         return capacity;
-//     }
+    public Integer getCapacity() {
+        return capacity;
+    }
 
-//     public void setCapacity(Integer capacity) {
-//         this.capacity = capacity;
-//     }
+    public void setCapacity(Integer capacity) {
+        this.capacity = capacity;
+    }
 
-//     public Integer getRows() {
-//         return rows;
-//     }
+    public Integer getRows() {
+        return rows;
+    }
 
-//     public void setRows(Integer rows) {
-//         this.rows = rows;
-//     }
+    public void setRows(Integer rows) {
+        this.rows = rows;
+    }
 
-//     public Integer getColumns() {
-//         return columns;
-//     }
+    public Integer getColumns() {
+        return columns;
+    }
 
-//     public void setColumns(Integer columns) {
-//         this.columns = columns;
-//     }
-// }
+    public void setColumns(Integer columns) {
+        this.columns = columns;
+    }
+}
