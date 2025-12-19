@@ -1,12 +1,12 @@
-package com.example.demo.service;
+// package com.example.demo.service;
 
-import java.util.List;
+// import java.util.List;
 
-import com.example.demo.model.ExamRoom;
+// import com.example.demo.model.ExamRoom;
 
-public interface ExamRoomService {
+// public interface ExamRoomService {
 
-    ExamRoom addRoom(ExamRoom room);
+//     ExamRoom addRoom(ExamRoom room);
 
-    List<ExamRoom> getAllRooms();
-}
+//     List<ExamRoom> getAllRooms();
+// }
