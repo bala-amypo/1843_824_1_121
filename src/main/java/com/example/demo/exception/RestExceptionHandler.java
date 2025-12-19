@@ -12,10 +12,4 @@ public class RestExceptionalHandler {
     public ResponseEntity<String> handleApiException(ApiException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
-
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<String> handleAllExceptions(Exception ex) {
-        ex.printStackTrace(); // VERY IMPORTANT
-        return new ResponseEntity<>("Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR);
-    }
 }
