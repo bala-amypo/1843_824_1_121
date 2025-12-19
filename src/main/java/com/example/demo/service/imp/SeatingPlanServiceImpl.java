@@ -1,79 +1,53 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.model.ExamRoom;
-import com.example.demo.model.ExamSession;
-import com.example.demo.model.SeatingPlan;
-import com.example.demo.repository.ExamRoomRepository;
-import com.example.demo.repository.ExamSessionRepository;
-import com.example.demo.repository.SeatingPlanRepository;
-import com.example.demo.service.SeatingPlanService;
-
+import java.util.List;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
+import com.example.demo.model.*;
+import com.example.demo.repository.*;
+import com.example.demo.service.SeatingPlanService;
 
 @Service
 public class SeatingPlanServiceImpl implements SeatingPlanService {
 
+    private final SeatingPlanRepository seatingPlanRepository;
     private final ExamSessionRepository examSessionRepository;
     private final ExamRoomRepository examRoomRepository;
-    private final SeatingPlanRepository seatingPlanRepository;
 
-    public SeatingPlanServiceImpl(ExamSessionRepository examSessionRepository,
-                                  ExamRoomRepository examRoomRepository,
-                                  SeatingPlanRepository seatingPlanRepository) {
+    public SeatingPlanServiceImpl(
+            SeatingPlanRepository seatingPlanRepository,
+            ExamSessionRepository examSessionRepository,
+            ExamRoomRepository examRoomRepository) {
+        this.seatingPlanRepository = seatingPlanRepository;
         this.examSessionRepository = examSessionRepository;
         this.examRoomRepository = examRoomRepository;
-        this.seatingPlanRepository = seatingPlanRepository;
     }
 
-    // ===============================
-    // Generate Seating Plan
-    // ===============================
     @Override
     public SeatingPlan generatePlan(Long sessionId) {
-
-        // 1. Find Exam Session
         ExamSession session = examSessionRepository.findById(sessionId)
-                .orElseThrow(() -> new RuntimeException("Exam session not found"));
+                .orElseThrow(() -> new RuntimeException("Session not found"));
 
-        // 2. Find available room
-        Optional<ExamRoom> roomOpt = examRoomRepository.findFirstByOrderByCapacityDesc();
+        ExamRoom room = examRoomRepository.findAll()
+                .stream()
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("No room available"));
 
-        if (roomOpt.isEmpty()) {
-            throw new RuntimeException("No room available");
-        }
+        SeatingPlan plan = new SeatingPlan();
+        plan.setExamSession(session);
+        plan.setRoom(room);
+        plan.setArrangementJson("{\"status\":\"generated\"}");
 
-        ExamRoom room = roomOpt.get();
-
-        // 3. Generate seating arrangement (simple JSON placeholder)
-        String arrangementJson =
-                "{ \"sessionId\": " + sessionId + ", \"room\": \"" + room.getRoomNumber() + "\" }";
-
-        // 4. Save seating plan
-        SeatingPlan plan = new SeatingPlan(session, room, arrangementJson);
         return seatingPlanRepository.save(plan);
     }
 
-    // ===============================
-    // Get Seating Plan by Plan ID
-    // ===============================
     @Override
     public SeatingPlan getPlan(Long planId) {
         return seatingPlanRepository.findById(planId)
                 .orElseThrow(() -> new RuntimeException("Plan not found"));
     }
 
-    // ===============================
-    // Get Seating Plan by Session ID
-    // ===============================
     @Override
-    public SeatingPlan getPlanBySession(Long sessionId) {
-
-        ExamSession session = examSessionRepository.findById(sessionId)
-                .orElseThrow(() -> new RuntimeException("Exam session not found"));
-
-        return seatingPlanRepository.findByExamSession(session)
-                .orElseThrow(() -> new RuntimeException("Plan not found for this session"));
+    public List<SeatingPlan> getPlansBySession(Long sessionId) {
+        return seatingPlanRepository.findByExamSession_Id(sessionId);
     }
 }
