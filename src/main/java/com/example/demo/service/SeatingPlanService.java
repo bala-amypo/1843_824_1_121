@@ -1,7 +1,7 @@
 package com.example.demo.service;
 
+import com.example.demo.entity.SeatingPlan;
 import java.util.List;
-import com.example.demo.model.SeatingPlan;
 
 public interface SeatingPlanService {
 

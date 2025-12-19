@@ -1,10 +1,11 @@
 package com.example.demo.repository;
 
-import java.util.List;
+import com.example.demo.entity.SeatingPlan;
 import org.springframework.data.jpa.repository.JpaRepository;
-import com.example.demo.model.SeatingPlan;
+
+import java.util.List;
 
 public interface SeatingPlanRepository extends JpaRepository<SeatingPlan, Long> {
 
-    List<SeatingPlan> findByExamSession_Id(Long sessionId);
+    List<SeatingPlan> findByExamSessionId(Long sessionId);
 }

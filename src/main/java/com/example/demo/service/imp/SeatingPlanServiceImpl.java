@@ -1,10 +1,12 @@
 package com.example.demo.service.impl;
 
-import java.util.List;
-import org.springframework.stereotype.Service;
-import com.example.demo.model.*;
+import com.example.demo.entity.*;
 import com.example.demo.repository.*;
 import com.example.demo.service.SeatingPlanService;
+
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class SeatingPlanServiceImpl implements SeatingPlanService {
@@ -24,18 +26,23 @@ public class SeatingPlanServiceImpl implements SeatingPlanService {
 
     @Override
     public SeatingPlan generatePlan(Long sessionId) {
+
         ExamSession session = examSessionRepository.findById(sessionId)
                 .orElseThrow(() -> new RuntimeException("Session not found"));
 
-        ExamRoom room = examRoomRepository.findAll()
-                .stream()
-                .findFirst()
-                .orElseThrow(() -> new RuntimeException("No room available"));
+        // 🔹 Find any room that fits capacity
+        ExamRoom room = examRoomRepository.findFirstByCapacityGreaterThanEqual(
+                session.getTotalStudents()
+        ).orElseThrow(() -> new RuntimeException("No room available"));
+
+        // 🔹 Generate simple arrangement JSON
+        String arrangementJson = "{ \"session\": " + sessionId +
+                ", \"room\": \"" + room.getName() + "\" }";
 
         SeatingPlan plan = new SeatingPlan();
         plan.setExamSession(session);
         plan.setRoom(room);
-        plan.setArrangementJson("{\"status\":\"generated\"}");
+        plan.setArrangementJson(arrangementJson);
 
         return seatingPlanRepository.save(plan);
     }
@@ -48,6 +55,6 @@ public class SeatingPlanServiceImpl implements SeatingPlanService {
 
     @Override
     public List<SeatingPlan> getPlansBySession(Long sessionId) {
-        return seatingPlanRepository.findByExamSession_Id(sessionId);
+        return seatingPlanRepository.findByExamSessionId(sessionId);
     }
 }
