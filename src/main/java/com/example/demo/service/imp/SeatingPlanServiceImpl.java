@@ -1,20 +1,22 @@
 package com.example.demo.service.impl;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
-import com.example.demo.entity.ExamRoom;
-import com.example.demo.entity.ExamSession;
-import com.example.demo.entity.SeatingPlan;
+import com.example.demo.model.ExamRoom;
+import com.example.demo.model.ExamSession;
+import com.example.demo.model.SeatingPlan;
 import com.example.demo.repository.SeatingPlanRepository;
 import com.example.demo.service.SeatingPlanService;
 
 @Service
 public class SeatingPlanServiceImpl implements SeatingPlanService {
 
-    private final SeatingPlanRepository seatingPlanRepository;
+    private final SeatingPlanRepository repository;
 
-    public SeatingPlanServiceImpl(SeatingPlanRepository seatingPlanRepository) {
-        this.seatingPlanRepository = seatingPlanRepository;
+    public SeatingPlanServiceImpl(SeatingPlanRepository repository) {
+        this.repository = repository;
     }
 
     @Override
@@ -29,8 +31,13 @@ public class SeatingPlanServiceImpl implements SeatingPlanService {
         SeatingPlan plan = new SeatingPlan();
         plan.setExamSession(session);
         plan.setRoom(room);
-        plan.setArrangementJson("{\"message\":\"Sample seating plan\"}");
+        plan.setArrangementJson("{\"status\":\"generated\"}");
 
-        return seatingPlanRepository.save(plan);
+        return repository.save(plan);
+    }
+
+    @Override
+    public List<SeatingPlan> getPlansBySession(Long examSessionId) {
+        return repository.findAll();
     }
 }

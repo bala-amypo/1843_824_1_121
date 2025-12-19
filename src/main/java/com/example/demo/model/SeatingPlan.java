@@ -10,7 +10,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
 
-
 @Entity
 public class SeatingPlan {
 
@@ -33,8 +32,6 @@ public class SeatingPlan {
     public void onCreate() {
         this.generatedAt = LocalDateTime.now();
     }
-
-    // ---------- Getters & Setters ----------
 
     public Long getId() {
         return id;
@@ -67,4 +64,14 @@ public class SeatingPlan {
     public LocalDateTime getGeneratedAt() {
         return generatedAt;
     }
+
+    public SeatingPlan(Long id, ExamSession examSession, ExamRoom room, String arrangementJson,
+            LocalDateTime generatedAt) {
+        this.id = id;
+        this.examSession = examSession;
+        this.room = room;
+        this.arrangementJson = arrangementJson;
+        this.generatedAt = generatedAt;
+    }
+    public SeatingPlan(){}
 }
