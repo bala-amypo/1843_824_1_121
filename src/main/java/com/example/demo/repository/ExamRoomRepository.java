@@ -9,4 +9,5 @@ import com.example.demo.model.ExamRoom;
 public interface ExamRoomRepository extends JpaRepository<ExamRoom, Long> {
 
     Optional<ExamRoom> findByRoomNumber(String roomNumber);
+    Optional<ExamRoom> findFirstByOrderByCapacityDesc();
 }
