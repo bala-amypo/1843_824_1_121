@@ -5,11 +5,7 @@ import com.example.demo.model.ExamRoom;
 
 public interface ExamRoomService {
 
-    ExamRoom saveExamRoom(ExamRoom examRoom);
+    ExamRoom addRoom(ExamRoom room);
 
-    List<ExamRoom> getAllExamRooms();
-
-    ExamRoom getExamRoomById(Long id);
-
-    void deleteExamRoom(Long id);
+    List<ExamRoom> getAllRooms();
 }
