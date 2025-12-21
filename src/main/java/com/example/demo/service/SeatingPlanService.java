@@ -6,7 +6,9 @@ import com.example.demo.model.SeatingPlan;
 
 public interface SeatingPlanService {
 
-    SeatingPlan generateSeatingPlan(Long examSessionId, Long roomId);
+    SeatingPlan generateSeatingPlan(Long sessionId);
 
-    List<SeatingPlan> getPlansBySession(Long examSessionId);
+    SeatingPlan getPlan(Long planId);
+
+    List<SeatingPlan> getPlansBySession(Long sessionId);
 }

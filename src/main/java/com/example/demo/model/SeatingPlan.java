@@ -2,13 +2,7 @@ package com.example.demo.model;
 
 import java.time.LocalDateTime;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.PrePersist;
+import jakarta.persistence.*;
 
 @Entity
 public class SeatingPlan {
@@ -32,6 +26,8 @@ public class SeatingPlan {
     public void onCreate() {
         this.generatedAt = LocalDateTime.now();
     }
+
+    public SeatingPlan() {}
 
     public Long getId() {
         return id;
@@ -64,14 +60,4 @@ public class SeatingPlan {
     public LocalDateTime getGeneratedAt() {
         return generatedAt;
     }
-
-    public SeatingPlan(Long id, ExamSession examSession, ExamRoom room, String arrangementJson,
-            LocalDateTime generatedAt) {
-        this.id = id;
-        this.examSession = examSession;
-        this.room = room;
-        this.arrangementJson = arrangementJson;
-        this.generatedAt = generatedAt;
-    }
-    public SeatingPlan(){}
 }
