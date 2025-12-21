@@ -8,6 +8,7 @@ import com.example.demo.exception.ApiException;
 import com.example.demo.model.ExamRoom;
 import com.example.demo.model.ExamSession;
 import com.example.demo.model.SeatingPlan;
+import com.example.demo.repository.ExamRoomRepository;
 import com.example.demo.repository.ExamSessionRepository;
 import com.example.demo.repository.SeatingPlanRepository;
 import com.example.demo.service.SeatingPlanService;
@@ -17,15 +18,18 @@ public class SeatingPlanServiceImpl implements SeatingPlanService {
 
     private final SeatingPlanRepository seatingPlanRepository;
     private final ExamSessionRepository examSessionRepository;
+    private final ExamRoomRepository examRoomRepository;
 
     public SeatingPlanServiceImpl(SeatingPlanRepository seatingPlanRepository,
-                                  ExamSessionRepository examSessionRepository) {
+                                  ExamSessionRepository examSessionRepository,
+                                  ExamRoomRepository examRoomRepository) {
         this.seatingPlanRepository = seatingPlanRepository;
         this.examSessionRepository = examSessionRepository;
+        this.examRoomRepository = examRoomRepository;
     }
 
     @Override
-    public SeatingPlan generateSeatingPlan(Long sessionId) {
+    public SeatingPlan generateSeatingPlan(Long sessionId, Long roomId) {
 
         ExamSession session = examSessionRepository.findById(sessionId)
                 .orElseThrow(() -> new ApiException("session not found"));
@@ -34,10 +38,8 @@ public class SeatingPlanServiceImpl implements SeatingPlanService {
             throw new ApiException("at least 1 student");
         }
 
-        ExamRoom room = session.getRoom();
-        if (room == null) {
-            throw new ApiException("no room");
-        }
+        ExamRoom room = examRoomRepository.findById(roomId)
+                .orElseThrow(() -> new ApiException("no room"));
 
         if (session.getStudents().size() > room.getCapacity()) {
             throw new ApiException("room capacity exceeded");
@@ -47,7 +49,6 @@ public class SeatingPlanServiceImpl implements SeatingPlanService {
         plan.setExamSession(session);
         plan.setRoom(room);
 
-        // simple arrangement JSON
         plan.setArrangementJson(
                 "{ \"studentCount\": " + session.getStudents().size() + " }"
         );
