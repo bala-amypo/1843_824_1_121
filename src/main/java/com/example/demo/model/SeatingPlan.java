@@ -16,7 +16,7 @@ public class SeatingPlan {
     @ManyToOne
     private ExamRoom room;
 
-    @Column(columnDefinition = "TEXT")
+
     private String arrangementJson;
 
     private LocalDateTime generatedAt;
