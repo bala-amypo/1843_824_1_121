@@ -21,6 +21,8 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Student addStudent(Student student) {
+    student.setId(null);
+
 
         if (studentRepository.findByRollNumber(student.getRollNumber()).isPresent()) {
             throw new ApiException("roll number exists");
