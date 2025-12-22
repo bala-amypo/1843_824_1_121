@@ -17,7 +17,7 @@ public class SeatingPlanController {
         this.service = service;
     }
 
-    // POST /seating-plan?examSessionId=1&roomId=2
+    
     @PostMapping
     public SeatingPlan generate(
             @RequestParam Long examSessionId,
@@ -26,13 +26,13 @@ public class SeatingPlanController {
         return service.generateSeatingPlan(examSessionId, roomId);
     }
 
-    // GET /seating-plan?examSessionId=1
+   
     @GetMapping
     public List<SeatingPlan> getAll(@RequestParam Long examSessionId) {
         return service.getPlansBySession(examSessionId);
     }
 
-    // GET /seating-plan/{planId}
+   
     @GetMapping("/{planId}")
     public SeatingPlan getOne(@PathVariable Long planId) {
         return service.getPlan(planId);

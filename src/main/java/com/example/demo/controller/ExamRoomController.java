@@ -19,13 +19,12 @@ public class ExamRoomController {
         this.examRoomService = examRoomService;
     }
 
-    // ✅ Add exam room
+    
     @PostMapping
     public ExamRoom addRoom(@RequestBody ExamRoom examRoom) {
         return examRoomService.addRoom(examRoom);
     }
 
-    // ✅ Get all exam rooms
     @GetMapping
     public List<ExamRoom> getAllRooms() {
         return examRoomService.getAllRooms();

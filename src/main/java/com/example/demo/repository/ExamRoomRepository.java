@@ -7,6 +7,6 @@ import com.example.demo.model.ExamRoom;
 @Repository
 public interface ExamRoomRepository extends JpaRepository<ExamRoom, Long> {
 
-    // Optional: find by room number
+  
     ExamRoom findByRoomNumber(String roomNumber);
 }
