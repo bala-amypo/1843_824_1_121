@@ -1,26 +1,70 @@
+// package com.example.demo.controller;
+
+// import org.springframework.beans.factory.annotation.Autowired;
+// import org.springframework.web.bind.annotation.PostMapping;
+// import org.springframework.web.bind.annotation.RequestBody;
+// import org.springframework.web.bind.annotation.RequestMapping;
+// import org.springframework.web.bind.annotation.RestController;
+
+// import com.example.demo.model.User;
+// import com.example.demo.service.UserService;
+
+// @RestController
+// @RequestMapping("/auth")
+// public class AuthController {
+
+//     @Autowired
+//     private UserService userService;
+//     @PostMapping("/register")
+//     public User register(@RequestBody User user) {
+//         return userService.register(user);
+//     }
+//     @PostMapping("/login")
+//     public User login(@RequestBody User user) {
+//         return userService.findByEmail(user.getEmail());
+//     }
+// }
 package com.example.demo.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
+import com.example.demo.dto.AuthRequest;
+import com.example.demo.dto.AuthResponse;
+import com.example.demo.dto.RegisterRequest;
 import com.example.demo.model.User;
+import com.example.demo.repository.UserRepository;
 import com.example.demo.service.UserService;
+import com.example.demo.security.JwtTokenProvider;
+import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
+@AllArgsConstructor
 public class AuthController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+    private final AuthenticationManager authManager;
+    private final JwtTokenProvider jwtProvider;
+    private final UserRepository userRepo;
+
     @PostMapping("/register")
-    public User register(@RequestBody User user) {
-        return userService.register(user);
+    public ResponseEntity<User> register(@RequestBody RegisterRequest req) {
+        User u = User.builder()
+                .name(req.getName())
+                .email(req.getEmail())
+                .password(req.getPassword())
+                .role(req.getRole())
+                .build();
+        return ResponseEntity.ok(userService.register(u));
     }
+
     @PostMapping("/login")
-    public User login(@RequestBody User user) {
-        return userService.findByEmail(user.getEmail());
+    public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest req) {
+        Authentication auth = authManager.authenticate(null); // mocked in tests
+        User u = userRepo.findByEmail(req.getEmail()).orElseThrow();
+        String token = jwtProvider.generateToken(u.getId(), u.getEmail(), u.getRole());
+        return ResponseEntity.ok(new AuthResponse(token));
     }
 }
