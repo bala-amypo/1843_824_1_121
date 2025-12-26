@@ -55,6 +55,21 @@
     <version>0.11.5</version>
     <scope>runtime</scope>
 </dependency>
+<!-- Lombok (for @Builder, @Data, etc.) -->
+<dependency>
+    <groupId>org.projectlombok</groupId>
+    <artifactId>lombok</artifactId>
+    <version>1.18.30</version>
+    <scope>provided</scope>
+</dependency>
+
+<!-- Jakarta Persistence API (for @Entity, @ManyToOne, etc.) -->
+<dependency>
+    <groupId>jakarta.persistence</groupId>
+    <artifactId>jakarta.persistence-api</artifactId>
+    <version>3.1.0</version>
+</dependency>
+
 
 <dependency>
     <groupId>org.springframework.boot</groupId>
