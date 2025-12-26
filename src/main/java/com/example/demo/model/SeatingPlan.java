@@ -3,15 +3,10 @@ package com.example.demo.model;
 import java.time.LocalDateTime;
 import java.util.List;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.Column;
 import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.PrePersist;
 
 @Entity
 @Table(name = "seating_plan")
@@ -23,17 +18,14 @@ public class SeatingPlan {
 
     private LocalDateTime generatedAt;
 
-    // link to exam session
     @ManyToOne(optional = false)
     @JoinColumn(name = "exam_session_id")
     private ExamSession examSession;
 
-    // link to exam room
     @ManyToOne(optional = false)
     @JoinColumn(name = "exam_room_id")
     private ExamRoom room;
 
-    // students in this seating plan
     @ManyToMany
     @JoinTable(
         name = "seating_plan_students",
@@ -42,19 +34,20 @@ public class SeatingPlan {
     )
     private List<Student> students;
 
-    // ✅ Default constructor
-    public SeatingPlan() {
-    }
+    // ✅ Added for test cases
+    @Column(columnDefinition = "TEXT")
+    private String arrangementJson;
 
-    // ✅ Parameterized constructor
-    public SeatingPlan(ExamSession examSession, ExamRoom room, List<Student> students) {
+    public SeatingPlan() {}
+
+    public SeatingPlan(ExamSession examSession, ExamRoom room, List<Student> students, String arrangementJson) {
         this.examSession = examSession;
         this.room = room;
         this.students = students;
+        this.arrangementJson = arrangementJson;
         this.generatedAt = LocalDateTime.now();
     }
 
-    // Automatically set generatedAt before saving
     @PrePersist
     public void onCreate() {
         if (this.generatedAt == null) {
@@ -63,44 +56,21 @@ public class SeatingPlan {
     }
 
     // ---------- Getters & Setters ----------
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public Long getId() {
-        return id;
-    }
+    public LocalDateTime getGeneratedAt() { return generatedAt; }
+    public void setGeneratedAt(LocalDateTime generatedAt) { this.generatedAt = generatedAt; }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public ExamSession getExamSession() { return examSession; }
+    public void setExamSession(ExamSession examSession) { this.examSession = examSession; }
 
-    public LocalDateTime getGeneratedAt() {
-        return generatedAt;
-    }
+    public ExamRoom getRoom() { return room; }
+    public void setRoom(ExamRoom room) { this.room = room; }
 
-    public void setGeneratedAt(LocalDateTime generatedAt) {
-        this.generatedAt = generatedAt;
-    }
+    public List<Student> getStudents() { return students; }
+    public void setStudents(List<Student> students) { this.students = students; }
 
-    public ExamSession getExamSession() {
-        return examSession;
-    }
-
-    public void setExamSession(ExamSession examSession) {
-        this.examSession = examSession;
-    }
-
-    public ExamRoom getRoom() {
-        return room;
-    }
-
-    public void setRoom(ExamRoom room) {
-        this.room = room;
-    }
-
-    public List<Student> getStudents() {
-        return students;
-    }
-
-    public void setStudents(List<Student> students) {
-        this.students = students;
-    }
+    public String getArrangementJson() { return arrangementJson; }
+    public void setArrangementJson(String arrangementJson) { this.arrangementJson = arrangementJson; }
 }
