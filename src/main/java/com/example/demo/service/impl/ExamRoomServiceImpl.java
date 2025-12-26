@@ -13,18 +13,17 @@ public class ExamRoomServiceImpl implements ExamRoomService {
 
     private final ExamRoomRepository repository;
 
-    @Autowired
     public ExamRoomServiceImpl(ExamRoomRepository repository) {
         this.repository = repository;
     }
 
     @Override
-    public ExamRoom addRoom(ExamRoom room) {
-        return repository.save(room);
+    public ExamRoom saveExamRoom(ExamRoom examRoom) {
+        return repository.save(examRoom);
     }
 
     @Override
-    public List<ExamRoom> getAllRooms() {
+    public List<ExamRoom> getAllExamRooms() {
         return repository.findAll();
     }
 }

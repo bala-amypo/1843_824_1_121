@@ -114,7 +114,7 @@ public class User {
     private Long id;
 
     @Column(unique = true, nullable = false)
-    private String username;
+    private String email;
 
     @Column(nullable = false)
     private String password;
@@ -124,8 +124,8 @@ public class User {
     private Role role;
 
     // ✅ Custom constructor (optional)
-    public User(String username, String password, Role role) {
-        this.username = username;
+    public User(String email, String password, Role role) {
+        this.email = email;
         this.password = password;
         this.role = role;
     }
