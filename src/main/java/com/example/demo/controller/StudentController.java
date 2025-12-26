@@ -20,8 +20,8 @@ public class StudentController {
     private StudentService studentService;
 
     @PostMapping
-    public Student addStudent(@RequestBody Student student) {
-        return studentService.addStudent(student);
+    public Student saveStudent(@RequestBody Student student) {
+        return studentService.saveStudent(student);
     }
 
     @GetMapping
