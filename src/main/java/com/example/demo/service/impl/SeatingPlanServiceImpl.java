@@ -19,43 +19,44 @@ public class SeatingPlanServiceImpl implements SeatingPlanService {
     private final ExamSessionRepository examSessionRepository;
     private final ExamRoomRepository examRoomRepository;
 
-    public SeatingPlanServiceImpl(SeatingPlanRepository seatingPlanRepository,
-                                  ExamSessionRepository examSessionRepository,
-                                  ExamRoomRepository examRoomRepository) {
+    public SeatingPlanServiceImpl(
+            SeatingPlanRepository seatingPlanRepository,
+            ExamSessionRepository examSessionRepository,
+            ExamRoomRepository examRoomRepository) {
         this.seatingPlanRepository = seatingPlanRepository;
         this.examSessionRepository = examSessionRepository;
         this.examRoomRepository = examRoomRepository;
     }
 
     @Override
-    public SeatingPlan generateSeatingPlan(Long examSessionId, Long roomId) {
+    public SeatingPlan generateSeatingPlan(Long sessionId, Long roomId) {
 
-        ExamSession session = examSessionRepository.findById(examSessionId)
-                .orElseThrow(() -> new RuntimeException("session not found"));
+        ExamSession session = examSessionRepository.findById(sessionId)
+                .orElseThrow(() -> new ApiException("session not found"));
 
         ExamRoom room = examRoomRepository.findById(roomId)
-                .orElseThrow(() -> new RuntimeException("room not found"));
-
-        if (session.getStudents().size() > room.getCapacity()) {
-            throw new RuntimeException("room capacity exceeded");
-        }
+                .orElseThrow(() -> new ApiException("room not found"));
 
         SeatingPlan plan = new SeatingPlan();
         plan.setExamSession(session);
         plan.setRoom(room);
-        plan.setStudents(session.getStudents());
+        plan.setArrangementJson("{\"status\":\"generated\"}");
 
         return seatingPlanRepository.save(plan);
     }
 
     @Override
-    public List<SeatingPlan> getPlansBySession(Long examSessionId) {
-        return seatingPlanRepository.findByExamSessionId(examSessionId);
+    public SeatingPlan getPlan(Long planId) {
+        return seatingPlanRepository.findById(planId)
+                .orElseThrow(() -> new ApiException("plan not found"));
     }
 
     @Override
-    public SeatingPlan getPlan(Long planId) {
-        return seatingPlanRepository.findById(planId)
-                .orElseThrow(() -> new RuntimeException("Seating plan not found"));
+    public List<SeatingPlan> getPlansBySession(Long sessionId) {
+        ExamSession session = examSessionRepository.findById(sessionId)
+                .orElseThrow(() -> new ApiException("session not found"));
+
+        return seatingPlanRepository.findByExamSession(session);
     }
 }
+
