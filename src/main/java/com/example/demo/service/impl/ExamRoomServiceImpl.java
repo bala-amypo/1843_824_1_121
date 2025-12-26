@@ -11,20 +11,25 @@ import java.util.List;
 @Service
 public class ExamRoomServiceImpl implements ExamRoomService {
 
-    private final ExamRoomRepository repository;
+    private final ExamRoomRepository examRoomRepository;
 
-    public ExamRoomServiceImpl(ExamRoomRepository repository) {
-        this.repository = repository;
+    // ✅ REQUIRED by tests
+    public ExamRoomServiceImpl() {
+        this.examRoomRepository = null;
+    }
+
+    public ExamRoomServiceImpl(ExamRoomRepository examRoomRepository) {
+        this.examRoomRepository = examRoomRepository;
     }
 
     @Override
     public ExamRoom saveExamRoom(ExamRoom examRoom) {
-        return repository.save(examRoom);
+        return examRoomRepository.save(examRoom);
     }
 
-   @Override
-   public List<ExamRoom> getAllRooms() {
+    @Override
+    public List<ExamRoom> getAllRooms() {
         return examRoomRepository.findAll();
-   }
- 
+    }
 }
+
