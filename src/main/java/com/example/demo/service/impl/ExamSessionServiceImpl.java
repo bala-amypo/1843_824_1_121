@@ -19,8 +19,14 @@ public class ExamSessionServiceImpl implements ExamSessionService {
     }
 
     @Override
-    public ExamSession saveSession(ExamSession session) {
+    public ExamSession createSession(ExamSession session) {
         return repository.save(session);
+    }
+
+    @Override
+    public ExamSession getSession(Long sessionId) {
+        return repository.findById(sessionId)
+                .orElseThrow(() -> new RuntimeException("ExamSession not found"));
     }
 
     @Override
