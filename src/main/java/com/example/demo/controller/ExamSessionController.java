@@ -1,26 +1,33 @@
-package com.example.demo.controller;
+// package com.example.demo.controller;
 
+import java.util.List;
+
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import com.example.demo.model.ExamSession;
 import com.example.demo.service.ExamSessionService;
 
 @RestController
-@RequestMapping("/sessions")
+@RequestMapping("/exam-sessions")
 public class ExamSessionController {
 
-    @Autowired
-    private ExamSessionService examSessionService;
+    private final ExamSessionService examSessionService;
 
-   
-    @PostMapping
-    public ExamSession createSession(@RequestBody ExamSession session) {
-        return examSessionService.createSession(session);
+    // ✅ Constructor injection
+    public ExamSessionController(ExamSessionService examSessionService) {
+        this.examSessionService = examSessionService;
     }
 
-   
-    @GetMapping("/{id}")
-    public ExamSession getSession(@PathVariable Long id) {
-        return examSessionService.getSession(id);
+    // ✅ Save Exam Session
+    @PostMapping
+    public ResponseEntity<ExamSession> saveSession(@RequestBody ExamSession session) {
+        return ResponseEntity.ok(examSessionService.saveSession(session));
+    }
+
+    // ✅ Get All Exam Sessions
+    @GetMapping
+    public ResponseEntity<List<ExamSession>> getAllSessions() {
+        return ResponseEntity.ok(examSessionService.getAllSessions());
     }
 }
