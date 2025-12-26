@@ -22,8 +22,9 @@ public class ExamRoomServiceImpl implements ExamRoomService {
         return repository.save(examRoom);
     }
 
-    @Override
-    public List<ExamRoom> getAllExamRooms() {
-        return repository.findAll();
-    }
+   @Override
+   public List<ExamRoom> getAllRooms() {
+        return examRoomRepository.findAll();
+   }
+ 
 }
