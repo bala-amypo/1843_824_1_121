@@ -1,8 +1,8 @@
 package com.example.demo.service;
 
+import java.util.List;
 import com.example.demo.model.SeatingPlan;
 
-import java.util.List;
 public interface SeatingPlanService {
 
     SeatingPlan generateSeatingPlan(Long sessionId, Long roomId);
