@@ -1,12 +1,12 @@
 package com.example.demo.service;
 
-import com.example.demo.model.ExamRoom;
 import java.util.List;
+import com.example.demo.model.ExamRoom;
 
 public interface ExamRoomService {
 
     ExamRoom saveExamRoom(ExamRoom examRoom);
 
-    List<ExamRoom> getAllExamRooms();
+    // ✅ MUST MATCH TEST CASE
+    List<ExamRoom> getAllRooms();
 }
-

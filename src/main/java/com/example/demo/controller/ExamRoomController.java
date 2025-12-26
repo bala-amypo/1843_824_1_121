@@ -1,9 +1,8 @@
-
 package com.example.demo.controller;
 
 import java.util.List;
 
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.demo.model.ExamRoom;
@@ -15,20 +14,20 @@ public class ExamRoomController {
 
     private final ExamRoomService examRoomService;
 
-    // ✅ Constructor required by Spring
+    @Autowired
     public ExamRoomController(ExamRoomService examRoomService) {
         this.examRoomService = examRoomService;
     }
 
-    // ✅ Save Exam Room
+    // ✅ SAVE ROOM
     @PostMapping
-    public ResponseEntity<ExamRoom> saveExamRoom(@RequestBody ExamRoom room) {
-        return ResponseEntity.ok(examRoomService.saveExamRoom(room));
+    public ExamRoom saveExamRoom(@RequestBody ExamRoom room) {
+        return examRoomService.saveExamRoom(room);
     }
 
-    // ✅ Get All Exam Rooms
+    // ✅ GET ALL ROOMS (THIS FIXES THE ERROR)
     @GetMapping
-    public ResponseEntity<List<ExamRoom>> getAllRooms() {
-        return ResponseEntity.ok(examRoomService.getAllRooms());
+    public List<ExamRoom> getAllRooms() {
+        return examRoomService.getAllRooms();
     }
 }
