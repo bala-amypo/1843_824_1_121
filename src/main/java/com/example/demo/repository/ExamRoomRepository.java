@@ -15,6 +15,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ExamRoomRepository extends JpaRepository<ExamRoom, Long> {
-    Optional<ExamRoom> findByRoomNumber(String roomNumber);
+    Optional<ExamRoom> findByRoomNumber(RoomNumber roomNumber);
     List<ExamRoom> findByCapacityGreaterThanEqual(Integer capacity);
 }

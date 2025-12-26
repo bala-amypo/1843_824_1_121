@@ -49,7 +49,7 @@ public class AuthController {
     private final JwtTokenProvider jwtProvider;
     private final UserRepository userRepo;
 
-    @PostMapping("/register")
+    @PostMapping("/Register")
     public ResponseEntity<User> register(@RequestBody RegisterRequest req) {
         User u = User.builder()
                 .name(req.getName())
