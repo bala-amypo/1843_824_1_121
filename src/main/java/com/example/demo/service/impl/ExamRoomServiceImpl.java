@@ -1,19 +1,19 @@
-package com.example.demo.service;
+package com.example.demo.service.impl;
+
+import java.util.List;
 
 import org.springframework.stereotype.Service;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import com.example.demo.model.ExamRoom;
 import com.example.demo.repository.ExamRoomRepository;
-
-import java.util.List;
+import com.example.demo.service.ExamRoomService;
 
 @Service
 public class ExamRoomServiceImpl implements ExamRoomService {
 
     private final ExamRoomRepository examRoomRepository;
 
-    // ✅ REQUIRED by tests
+    // REQUIRED
     public ExamRoomServiceImpl() {
         this.examRoomRepository = null;
     }
@@ -23,8 +23,8 @@ public class ExamRoomServiceImpl implements ExamRoomService {
     }
 
     @Override
-    public ExamRoom saveExamRoom(ExamRoom examRoom) {
-        return examRoomRepository.save(examRoom);
+    public ExamRoom saveExamRoom(ExamRoom room) {
+        return examRoomRepository.save(room);
     }
 
     @Override
@@ -32,4 +32,3 @@ public class ExamRoomServiceImpl implements ExamRoomService {
         return examRoomRepository.findAll();
     }
 }
-

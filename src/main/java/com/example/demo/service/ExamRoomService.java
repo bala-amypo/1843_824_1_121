@@ -5,8 +5,7 @@ import com.example.demo.model.ExamRoom;
 
 public interface ExamRoomService {
 
-    ExamRoom saveExamRoom(ExamRoom examRoom);
+    ExamRoom saveExamRoom(ExamRoom room);
 
-    // ✅ MUST MATCH TEST CASE
     List<ExamRoom> getAllRooms();
 }
