@@ -139,7 +139,6 @@ public class SeatingPlan {
     @Column(columnDefinition = "TEXT")
     private String arrangementJson;
 
-    // ✅ Auto timestamp
     @PrePersist
     private void onCreate() {
         if (generatedAt == null) {
