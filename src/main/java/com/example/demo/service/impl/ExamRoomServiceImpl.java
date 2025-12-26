@@ -1,4 +1,4 @@
-// // package com.example.demo.service.impl;
+package com.example.demo.service.impl;
 
 // // import org.springframework.stereotype.Service;
 // // import org.springframework.beans.factory.annotation.Autowired;
@@ -58,6 +58,7 @@
 //         return examRoomRepository.findAll();
 //     }
 // }
+
 @Service
 public class ExamRoomServiceImpl implements ExamRoomService {
 
