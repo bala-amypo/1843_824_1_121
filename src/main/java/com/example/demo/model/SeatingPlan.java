@@ -1,7 +1,13 @@
 package com.example.demo.model;
 
 import java.time.LocalDateTime;
-import jakarta.persistence.*;
+import java.util.List;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 
 @Entity
 public class SeatingPlan {
@@ -10,30 +16,44 @@ public class SeatingPlan {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    private ExamSession examSession;
-
-    @ManyToOne
-    private ExamRoom room;
-
-    @Column(columnDefinition = "TEXT")
-    private String arrangementJson;
-
     private LocalDateTime generatedAt;
 
-    @PrePersist
-    public void onCreate() {
-        this.generatedAt = LocalDateTime.now();
+    @ManyToMany
+    private List<Student> students;
+
+    // ✅ REQUIRED DEFAULT CONSTRUCTOR
+    public SeatingPlan() {
     }
 
-    public SeatingPlan() {}
+    // ✅ OPTIONAL PARAMETERIZED CONSTRUCTOR
+    public SeatingPlan(LocalDateTime generatedAt, List<Student> students) {
+        this.generatedAt = generatedAt;
+        this.students = students;
+    }
 
-    public Long getId() { return id; }
-    public ExamSession getExamSession() { return examSession; }
-    public void setExamSession(ExamSession examSession) { this.examSession = examSession; }
-    public ExamRoom getRoom() { return room; }
-    public void setRoom(ExamRoom room) { this.room = room; }
-    public String getArrangementJson() { return arrangementJson; }
-    public void setArrangementJson(String arrangementJson) { this.arrangementJson = arrangementJson; }
-    public LocalDateTime getGeneratedAt() { return generatedAt; }
+    // ---------- getters & setters ----------
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public LocalDateTime getGeneratedAt() {
+        return generatedAt;
+    }
+
+    public void setGeneratedAt(LocalDateTime generatedAt) {
+        this.generatedAt = generatedAt;
+    }
+
+    public List<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(List<Student> students) {
+        this.students = students;
+    }
 }
