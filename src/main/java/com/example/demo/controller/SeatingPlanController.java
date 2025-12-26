@@ -8,7 +8,7 @@ import com.example.demo.model.SeatingPlan;
 import com.example.demo.service.SeatingPlanService;
 
 @RestController
-@RequestMapping("/seating-plan")
+@RequestMapping("/seating-plans")
 public class SeatingPlanController {
 
     private final SeatingPlanService service;
@@ -17,24 +17,19 @@ public class SeatingPlanController {
         this.service = service;
     }
 
-    
-    @PostMapping
-    public SeatingPlan generate(
-            @RequestParam Long examSessionId,
-            @RequestParam Long roomId) {
-
-        return service.generateSeatingPlan(examSessionId, roomId);
+    @PostMapping("/generate")
+    public SeatingPlan generate(@RequestParam Long sessionId,
+                                @RequestParam Long roomId) {
+        return service.generateSeatingPlan(sessionId, roomId);
     }
 
-   
-    @GetMapping
-    public List<SeatingPlan> getAll(@RequestParam Long examSessionId) {
-        return service.getPlansBySession(examSessionId);
+    @GetMapping("/{id}")
+    public SeatingPlan get(@PathVariable Long id) {
+        return service.getPlan(id);
     }
 
-   
-    @GetMapping("/{planId}")
-    public SeatingPlan getOne(@PathVariable Long planId) {
-        return service.getPlan(planId);
+    @GetMapping("/session/{sessionId}")
+    public List<SeatingPlan> getBySession(@PathVariable Long sessionId) {
+        return service.getPlansBySession(sessionId);
     }
 }
