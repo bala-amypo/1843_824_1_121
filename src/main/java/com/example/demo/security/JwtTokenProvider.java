@@ -8,14 +8,24 @@ import org.springframework.stereotype.Component;
 import java.security.Key;
 import java.util.Date;
 
-@Component   // ✅ REQUIRED so Spring creates a bean
+@Component
 public class JwtTokenProvider {
 
     @Value("${jwt.secret}")
     private String secretKey;
 
     @Value("${jwt.expiration}")
-    private long validityInMilliseconds; // e.g., 3600000 = 1 hour
+    private long validityInMilliseconds;
+
+    // ✅ REQUIRED for TEST CASES
+    public JwtTokenProvider(String secretKey, long validityInMilliseconds) {
+        this.secretKey = secretKey;
+        this.validityInMilliseconds = validityInMilliseconds;
+    }
+
+    // ✅ REQUIRED for SPRING
+    public JwtTokenProvider() {
+    }
 
     private Key getSigningKey() {
         return Keys.hmacShaKeyFor(secretKey.getBytes());
