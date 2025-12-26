@@ -1,39 +1,62 @@
 package com.example.demo.security;
 
-import org.springframework.stereotype.Component;
+import io.jsonwebtoken.*;
+import io.jsonwebtoken.security.Keys;
+import lombok.AllArgsConstructor;
 
-@Component
+import java.security.Key;
+import java.util.Date;
+
+@AllArgsConstructor
 public class JwtTokenProvider {
 
-    private String secretKey;
-    private int validityInMilliseconds;
+    private final String secretKey;
+    private final long validityInMilliseconds; // e.g., 3600000 = 1 hour
 
-    // ✅ REQUIRED BY TEST
-    public JwtTokenProvider() {
-        this.secretKey = "default-secret";
-        this.validityInMilliseconds = 3600000;
+    private Key getSigningKey() {
+        return Keys.hmacShaKeyFor(secretKey.getBytes());
     }
 
-    // ✅ REQUIRED BY TEST
-    public JwtTokenProvider(String secretKey, int validityInMilliseconds) {
-        this.secretKey = secretKey;
-        this.validityInMilliseconds = validityInMilliseconds;
+    public String generateToken(Long userId, String email, String role) {
+        Date now = new Date();
+        Date expiry = new Date(now.getTime() + validityInMilliseconds);
+
+        return Jwts.builder()
+                .claim("userId", userId)
+                .claim("email", email)
+                .claim("role", role)
+                .setIssuedAt(now)
+                .setExpiration(expiry)
+                .signWith(getSigningKey(), SignatureAlgorithm.HS256)
+                .compact();
     }
 
-    // ✅ REQUIRED METHOD
-    public String createToken(String email) {
-        // Test does NOT verify real JWT, only flow
-        return email + "-token";
-    }
-
-    // ✅ REQUIRED METHOD
     public boolean validateToken(String token) {
-        return token != null && token.endsWith("-token");
+        try {
+            Jwts.parserBuilder().setSigningKey(getSigningKey()).build().parseClaimsJws(token);
+            return true;
+        } catch (JwtException | IllegalArgumentException ex) {
+            return false;
+        }
     }
 
-    // ✅ REQUIRED METHOD
+    public Long getUserIdFromToken(String token) {
+        return ((Number) getClaims(token).get("userId")).longValue();
+    }
+
     public String getEmailFromToken(String token) {
-        if (token == null) return null;
-        return token.replace("-token", "");
+        return (String) getClaims(token).get("email");
+    }
+
+    public String getRoleFromToken(String token) {
+        return (String) getClaims(token).get("role");
+    }
+
+    private Claims getClaims(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(getSigningKey())
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
     }
 }
