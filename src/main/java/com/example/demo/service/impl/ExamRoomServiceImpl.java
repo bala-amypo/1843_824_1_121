@@ -1,11 +1,11 @@
 package com.example.demo.service.impl;
 
-// // import org.springframework.stereotype.Service;
-// // import org.springframework.beans.factory.annotation.Autowired;
-// // import java.util.List;
-// // import com.example.demo.model.ExamRoom;
-// // import com.example.demo.repository.ExamRoomRepository;
-// // import com.example.demo.service.ExamRoomService;
+import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
+import java.util.List;
+import com.example.demo.model.ExamRoom;
+import com.example.demo.repository.ExamRoomRepository;
+import com.example.demo.service.ExamRoomService;
 
 // // @Service
 // // public class ExamRoomServiceImpl implements ExamRoomService {
