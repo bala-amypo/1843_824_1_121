@@ -1,80 +1,132 @@
+// package com.example.demo.model;
+// import jakarta.persistence.Entity;
+// import jakarta.persistence.Column;
+// import jakarta.persistence.Id;
+// import jakarta.persistence.GeneratedValue;
+// import jakarta.persistence.GenerationType;
+
+// @Entity
+// public class User{
+   
+//     @Id
+//     @GeneratedValue(strategy=GenerationType.IDENTITY)
+//     private Long id;
+
+//     private String name;
+//     @Column(unique=true)
+//     private String email;
+    
+//     private String password;
+
+//     private Role role=Role.STAFF;
+//     public enum Role{
+//         ADMIN,
+//         STAFF
+//     }
+   
+//      public Long getId() {
+//         return id;
+//     }
+
+   
+//     public void setId(Long id) {
+//         this.id = id;
+//     }
+
+   
+//     public String getName() {
+//         return name;
+//     }
+
+   
+//     public void setName(String name) {
+//         this.name = name;
+//     }
+
+//     public String getEmail() {
+//         return email;
+//     }
+
+   
+//     public void setEmail(String email) {
+//         this.email = email;
+//     }
+
+   
+//     public String getPassword() {
+//         return password;
+//     }
+
+   
+//     public void setPassword(String password) {
+//         this.password = password;
+//     }
+//     public Role getRole(){
+//         return role;
+//     }
+//     public void setRole(Role role){
+//         this.role=role;
+//     }
+
+//     public User(Long id,String name,String email,String password,Role role){
+//         this.id=id;
+//         this.name=name;
+//         this.email=email;
+//         this.password=password;
+//         this.role=role;
+//     }
+//     public User(){};
+
+// }
 package com.example.demo.model;
+
 import jakarta.persistence.Entity;
-import jakarta.persistence.Column;
+import jakarta.persistence.Table;
 import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Column;
+
+import lombok.Getter;
+import lombok.Setter;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 
 @Entity
-public class User{
-   
+@Table(name = "users")
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class User {
+
+    public enum Role {
+        ADMIN,
+        STUDENT
+    }
+
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
-    @Column(unique=true)
-    private String email;
-    
+    @Column(unique = true, nullable = false)
+    private String username;
+
+    @Column(nullable = false)
     private String password;
 
-    private Role role=Role.STAFF;
-    public enum Role{
-        ADMIN,
-        STAFF
-    }
-   
-     public Long getId() {
-        return id;
-    }
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Role role;
 
-   
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-   
-    public String getName() {
-        return name;
-    }
-
-   
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-   
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-   
-    public String getPassword() {
-        return password;
-    }
-
-   
-    public void setPassword(String password) {
+    // ✅ Custom constructor (optional)
+    public User(String username, String password, Role role) {
+        this.username = username;
         this.password = password;
+        this.role = role;
     }
-    public Role getRole(){
-        return role;
-    }
-    public void setRole(Role role){
-        this.role=role;
-    }
-
-    public User(Long id,String name,String email,String password,Role role){
-        this.id=id;
-        this.name=name;
-        this.email=email;
-        this.password=password;
-        this.role=role;
-    }
-    public User(){};
-
 }
