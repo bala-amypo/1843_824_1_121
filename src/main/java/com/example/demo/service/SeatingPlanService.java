@@ -11,6 +11,17 @@
 
 //     List<SeatingPlan> getPlansBySession(Long sessionId);
 // }
+// package com.example.demo.service;
+
+// import java.util.List;
+// import com.example.demo.model.SeatingPlan;
+
+// public interface SeatingPlanService {
+
+//     SeatingPlan saveSeatingPlan(SeatingPlan seatingPlan);
+
+//     List<SeatingPlan> getAllSeatingPlans();
+// }
 package com.example.demo.service;
 
 import java.util.List;
@@ -18,7 +29,9 @@ import com.example.demo.model.SeatingPlan;
 
 public interface SeatingPlanService {
 
-    SeatingPlan saveSeatingPlan(SeatingPlan seatingPlan);
+    SeatingPlan generateSeatingPlan(Long examSessionId, Long roomId);
 
-    List<SeatingPlan> getAllSeatingPlans();
+    List<SeatingPlan> getPlansBySession(Long examSessionId);
+
+    SeatingPlan getPlan(Long planId);
 }

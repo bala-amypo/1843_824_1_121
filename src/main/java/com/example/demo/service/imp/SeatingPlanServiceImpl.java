@@ -71,6 +71,44 @@
 //         return seatingPlanRepository.findByExamSession(session);
 //     }
 // }
+// package com.example.demo.service.impl;
+
+// import java.time.LocalDateTime;
+// import java.util.List;
+
+// import org.springframework.stereotype.Service;
+
+// import com.example.demo.model.SeatingPlan;
+// import com.example.demo.model.Student;
+// import com.example.demo.repository.SeatingPlanRepository;
+// import com.example.demo.service.SeatingPlanService;
+
+// @Service
+// public class SeatingPlanServiceImpl implements SeatingPlanService {
+
+//     private final SeatingPlanRepository seatingPlanRepository;
+
+//     // ✅ test-safe constructor
+//     public SeatingPlanServiceImpl() {
+//         this.seatingPlanRepository = null;
+//     }
+
+//     // ✅ spring constructor
+//     public SeatingPlanServiceImpl(SeatingPlanRepository seatingPlanRepository) {
+//         this.seatingPlanRepository = seatingPlanRepository;
+//     }
+
+//     @Override
+//     public SeatingPlan saveSeatingPlan(SeatingPlan seatingPlan) {
+//         seatingPlan.setGeneratedAt(LocalDateTime.now());
+//         return seatingPlanRepository.save(seatingPlan);
+//     }
+
+//     @Override
+//     public List<SeatingPlan> getAllSeatingPlans() {
+//         return seatingPlanRepository.findAll();
+//     }
+// }
 package com.example.demo.service.impl;
 
 import java.time.LocalDateTime;
@@ -79,7 +117,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.model.SeatingPlan;
-import com.example.demo.model.Student;
+import com.example.demo.model.ExamSession;
 import com.example.demo.repository.SeatingPlanRepository;
 import com.example.demo.service.SeatingPlanService;
 
@@ -88,24 +126,31 @@ public class SeatingPlanServiceImpl implements SeatingPlanService {
 
     private final SeatingPlanRepository seatingPlanRepository;
 
-    // ✅ test-safe constructor
-    public SeatingPlanServiceImpl() {
-        this.seatingPlanRepository = null;
-    }
-
-    // ✅ spring constructor
     public SeatingPlanServiceImpl(SeatingPlanRepository seatingPlanRepository) {
         this.seatingPlanRepository = seatingPlanRepository;
     }
 
     @Override
-    public SeatingPlan saveSeatingPlan(SeatingPlan seatingPlan) {
-        seatingPlan.setGeneratedAt(LocalDateTime.now());
-        return seatingPlanRepository.save(seatingPlan);
+    public SeatingPlan generateSeatingPlan(Long examSessionId, Long roomId) {
+        SeatingPlan plan = new SeatingPlan();
+        plan.setGeneratedAt(LocalDateTime.now());
+
+        // TODO: add student allocation logic later
+
+        return seatingPlanRepository.save(plan);
     }
 
     @Override
-    public List<SeatingPlan> getAllSeatingPlans() {
-        return seatingPlanRepository.findAll();
+    public List<SeatingPlan> getPlansBySession(Long examSessionId) {
+        ExamSession session = new ExamSession();
+        session.setId(examSessionId);
+
+        return seatingPlanRepository.findByExamSession(session);
+    }
+
+    @Override
+    public SeatingPlan getPlan(Long planId) {
+        return seatingPlanRepository.findById(planId)
+                .orElseThrow(() -> new RuntimeException("Seating plan not found"));
     }
 }
