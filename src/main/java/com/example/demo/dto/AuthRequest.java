@@ -31,23 +31,54 @@
 // }
 package com.example.demo.dto;
 
-import com.example.demo.model.User;
-
 public class AuthRequest {
+
     private String email;
     private String password;
 
-    public String getEmail() { return email; }
-    public void setEmail(String email) { this.email = email; }
+    // REQUIRED no-args constructor
+    public AuthRequest() {
+    }
 
-    public String getPassword() { return password; }
-    public void setPassword(String password) { this.password = password; }
+    // getters & setters
+    public String getEmail() {
+        return email;
+    }
 
-    // Convert DTO to User entity
-    public User toUser() {
-        User user = new User();
-        user.setEmail(this.email);
-        user.setPassword(this.password);
-        return user;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    // =========================
+    // Builder (REQUIRED by tests)
+    // =========================
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static class Builder {
+        private final AuthRequest req = new AuthRequest();
+
+        public Builder email(String email) {
+            req.setEmail(email);
+            return this;
+        }
+
+        public Builder password(String password) {
+            req.setPassword(password);
+            return this;
+        }
+
+        public AuthRequest build() {
+            return req;
+        }
     }
 }
