@@ -1,15 +1,14 @@
 package com.example.demo.dto;
 
 public class AuthResponse {
+
     private String token;
     private Long userId;
     private String email;
     private String role;
 
-    // No-arg constructor (required by Spring / Jackson)
     public AuthResponse() {}
 
-    // All-args constructor (to use in your controller)
     public AuthResponse(String token, Long userId, String email, String role) {
         this.token = token;
         this.userId = userId;

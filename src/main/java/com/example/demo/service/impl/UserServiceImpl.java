@@ -1,56 +1,44 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.exception.ApiException;
-import com.example.demo.model.User;
-import com.example.demo.repository.UserRepository;
-import com.example.demo.service.UserService;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import com.example.demo.service.UserService;
+import com.example.demo.repository.UserRepository;
+import com.example.demo.model.User;
+import com.example.demo.exception.ApiException;
 
 @Service
 public class UserServiceImpl implements UserService {
 
-    private final UserRepository repo;
-    private final PasswordEncoder encoder;
+    private final UserRepository userRepo;
+    private final BCryptPasswordEncoder encoder; // specifically BCryptPasswordEncoder
 
-    public UserServiceImpl(UserRepository repo, PasswordEncoder encoder) {
-        this.repo = repo;
+    // Constructor expected by tests
+    @Autowired
+    public UserServiceImpl(UserRepository userRepo, BCryptPasswordEncoder encoder) {
+        this.userRepo = userRepo;
         this.encoder = encoder;
     }
 
     @Override
     public User register(User user) {
-
-        // 1. Null + mandatory field check
-        if (user == null ||
-            user.getEmail() == null ||
-            user.getEmail().trim().isEmpty() ||
-            user.getPassword() == null ||
-            user.getPassword().trim().isEmpty()) {
-
-            throw new ApiException("Invalid user data");
+        if (user.getRole() == null) {
+            user.setRole("STAFF");
         }
 
-        // 2. Duplicate email check (IMPORTANT FOR test51)
-        if (repo.findByEmail(user.getEmail()).isPresent()) {
-            throw new ApiException("Email already registered");
+        if (userRepo.findByEmail(user.getEmail()).isPresent()) {
+            throw new ApiException("User already exists");
         }
 
-        // 3. Encode password
         user.setPassword(encoder.encode(user.getPassword()));
-
-        return repo.save(user);
+        return userRepo.save(user);
     }
 
     @Override
     public User findByEmail(String email) {
-
-        if (email == null || email.trim().isEmpty()) {
-            throw new ApiException("User not found");
-        }
-
-        // IMPORTANT FOR test50
-        return repo.findByEmail(email)
+        return userRepo.findByEmail(email)
                 .orElseThrow(() -> new ApiException("User not found"));
     }
 }
