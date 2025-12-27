@@ -11,7 +11,7 @@ import com.example.demo.model.User;
 import com.example.demo.exception.ApiException;
 
 @Service
-@AllArgsConstructor
+
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepo;
