@@ -104,6 +104,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 
 import com.example.demo.dto.AuthRequest;
 import com.example.demo.dto.RegisterRequest;
+import com.example.demo.dto.AuthResponse;
 import com.example.demo.model.User;
 import com.example.demo.security.JwtTokenProvider;
 import com.example.demo.service.UserService;
@@ -116,9 +117,9 @@ public class AuthController {
     private final UserService userService;
     private final AuthenticationManager authenticationManager;
     private final JwtTokenProvider jwtTokenProvider;
-    private final UserRepository userRepository; // ✅ REQUIRED BY TEST
+    private final UserRepository userRepository; // required by tests
 
-    // ✅ REQUIRED CONSTRUCTOR (MATCHES TEST EXACTLY)
+    // ✅ REQUIRED constructor signature (DO NOT CHANGE ORDER)
     public AuthController(UserService userService,
                           AuthenticationManager authenticationManager,
                           JwtTokenProvider jwtTokenProvider,
@@ -130,13 +131,21 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<User> register(@RequestBody RegisterRequest request) {
+    public ResponseEntity<AuthResponse> register(@RequestBody RegisterRequest request) {
+
         User user = userService.register(request.toUser());
-        return ResponseEntity.ok(user); // ✅ RETURN USER
+
+        String token = jwtTokenProvider.generateToken(
+                user.getId(),
+                user.getEmail(),
+                user.getRole()
+        );
+
+        return ResponseEntity.ok(new AuthResponse(token));
     }
 
     @PostMapping("/login")
-    public ResponseEntity<User> login(@RequestBody AuthRequest request) {
+    public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest request) {
 
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
@@ -145,8 +154,14 @@ public class AuthController {
                 )
         );
 
-        // ✅ TEST EXPECTS USER, NOT TOKEN
         User user = userService.findByEmail(request.getEmail());
-        return ResponseEntity.ok(user);
+
+        String token = jwtTokenProvider.generateToken(
+                user.getId(),
+                user.getEmail(),
+                user.getRole()
+        );
+
+        return ResponseEntity.ok(new AuthResponse(token));
     }
 }
