@@ -45,11 +45,12 @@ import com.example.demo.service.StudentService;
 import com.example.demo.repository.StudentRepository;
 import com.example.demo.model.Student;
 import com.example.demo.exception.ApiException;
-import lombok.AllArgsConstructor;
+
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@AllArgsConstructor
+@Service
 public class StudentServiceImpl implements StudentService {
 
     private final StudentRepository studentRepo;

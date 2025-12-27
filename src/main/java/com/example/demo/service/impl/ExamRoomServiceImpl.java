@@ -39,10 +39,11 @@ import com.example.demo.repository.ExamRoomRepository;
 import com.example.demo.model.ExamRoom;
 import com.example.demo.exception.ApiException;
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@AllArgsConstructor
+@Service
 public class ExamRoomServiceImpl implements ExamRoomService {
 
     private final ExamRoomRepository roomRepo;

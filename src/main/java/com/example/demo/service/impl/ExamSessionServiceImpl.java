@@ -35,12 +35,12 @@ import com.example.demo.repository.StudentRepository;
 import com.example.demo.model.ExamSession;
 import com.example.demo.model.Student;
 import com.example.demo.exception.ApiException;
-import lombok.AllArgsConstructor;
+
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.HashSet;
-
-@AllArgsConstructor
+@Service
 public class ExamSessionServiceImpl implements ExamSessionService {
 
     private final ExamSessionRepository sessionRepo;
