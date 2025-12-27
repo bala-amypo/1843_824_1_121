@@ -1,75 +1,45 @@
-// package com.example.demo.dto;
-
-// import lombok.Builder;
-// import lombok.Data;
-
-// @Data
-// @Builder
-// public class RegisterRequest {
-//     private String name;
-//     private String email;
-//     private String password;
-//     private String role;
-// }
 package com.example.demo.dto;
 
-public class RegisterRequest {
+import lombok.Builder;
+import lombok.Data;
 
+@Data
+@Builder
+public class RegisterRequest {
     private String name;
     private String email;
     private String password;
-    private String role;   // ✅ REQUIRED BY TESTS
-
-    public RegisterRequest() {}
-
-    // ✅ getters (tests + controller use these)
-    public String getName() {
-        return name;
+    private String role;
+    
+    public String getName() { return name; }
+    public String getEmail() { return email; }
+    public String getPassword() { return password; }
+    public String getRole() { return role; }
+    
+    public static RegisterRequestBuilder builder() {
+        return new RegisterRequestBuilder();
     }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    // ✅ builder (tests expect role())
-    public static Builder builder() {
-        return new Builder();
-    }
-
-    public static class Builder {
-        private final RegisterRequest r = new RegisterRequest();
-
-        public Builder name(String name) {
-            r.name = name;
-            return this;
-        }
-
-        public Builder email(String email) {
-            r.email = email;
-            return this;
-        }
-
-        public Builder password(String password) {
-            r.password = password;
-            return this;
-        }
-
-        // 🔴 THIS IS WHAT FIXES THE ERROR
-        public Builder role(String role) {
-            r.role = role;
-            return this;
-        }
-
+    
+    public static class RegisterRequestBuilder {
+        private String name;
+        private String email;
+        private String password;
+        private String role;
+        
+        public RegisterRequestBuilder name(String name) { this.name = name; return this; }
+        public RegisterRequestBuilder email(String email) { this.email = email; return this; }
+        public RegisterRequestBuilder password(String password) { this.password = password; return this; }
+        public RegisterRequestBuilder role(String role) { this.role = role; return this; }
+        
         public RegisterRequest build() {
-            return r;
+            RegisterRequest request = new RegisterRequest();
+            request.name = this.name;
+            request.email = this.email;
+            request.password = this.password;
+            request.role = this.role;
+            return request;
         }
     }
+    
+    public RegisterRequest() {}
 }
