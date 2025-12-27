@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import java.util.List;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
+import io.swagger.v3.oas.models.Components;
 
 @Configuration
 public class SwaggerConfig {
@@ -17,7 +18,7 @@ public class SwaggerConfig {
         return new OpenAPI()
                 // 👉 SERVER CONFIG (change port if needed)
                 .servers(List.of(
-                        new Server().url("https://9099.pro604cr.amypo.ai")
+                        new Server().url("https://9047.32procr.amypo.ai/)
                 ))
 
                 // 👉 JWT SECURITY CONFIG
