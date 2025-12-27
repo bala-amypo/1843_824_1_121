@@ -64,11 +64,15 @@ public class AuthResponse {
     private String email;
     private String role;
 
-    // REQUIRED: no-args constructor
-    public AuthResponse() {
+    // ✅ REQUIRED by Spring / Jackson
+    public AuthResponse() {}
+
+    // ✅ REQUIRED by AuthController (login & register)
+    public AuthResponse(String token) {
+        this.token = token;
     }
 
-    // REQUIRED: constructor used by tests
+    // ✅ REQUIRED by TEST CASES
     public AuthResponse(String token, Long userId, String email, String role) {
         this.token = token;
         this.userId = userId;
@@ -76,33 +80,32 @@ public class AuthResponse {
         this.role = role;
     }
 
-    // Getters & setters
     public String getToken() {
         return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
     }
 
     public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public String getRole() {
         return role;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public void setRole(String role) {
