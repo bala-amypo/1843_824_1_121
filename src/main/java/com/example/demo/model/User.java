@@ -54,24 +54,33 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 @Entity
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+@Table(name="users")
+@Getter 
+@Setter
 @Builder
-@Table(name = "users", uniqueConstraints = {@UniqueConstraint(columnNames = "email")})
+@NoArgsConstructor 
+@AllArgsConstructor 
 public class User {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
     private String name;
 
-    @Column(unique = true)
+    @Email
+    @NotBlank
+    @Column(unique=true)
     private String email;
 
+    @NotBlank
     private String password;
-    private String role;
+
+    @Builder.Default 
+    private String role = "STAFF";
 }
