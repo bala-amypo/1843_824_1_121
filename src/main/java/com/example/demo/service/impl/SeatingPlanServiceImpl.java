@@ -1,4 +1,3 @@
-
 package com.example.demo.service.impl;
 
 import com.example.demo.service.SeatingPlanService;
@@ -22,6 +21,17 @@ public class SeatingPlanServiceImpl implements SeatingPlanService {
     private final SeatingPlanRepository planRepo;
     private final ExamRoomRepository roomRepo;
 
+    // ✅ REQUIRED constructor
+    public SeatingPlanServiceImpl(
+            ExamSessionRepository sessionRepo,
+            SeatingPlanRepository planRepo,
+            ExamRoomRepository roomRepo
+    ) {
+        this.sessionRepo = sessionRepo;
+        this.planRepo = planRepo;
+        this.roomRepo = roomRepo;
+    }
+
     @Override
     public SeatingPlan generatePlan(Long sessionId) {
         ExamSession session = sessionRepo.findById(sessionId)
@@ -31,15 +41,16 @@ public class SeatingPlanServiceImpl implements SeatingPlanService {
         if (rooms.isEmpty())
             throw new ApiException("No room available");
 
-        ExamRoom selectedRoom = rooms.get(0); // simple first-fit allocation
+        ExamRoom selectedRoom = rooms.get(0); // first-fit
         SeatingPlan plan = new SeatingPlan();
         plan.setExamSession(session);
         plan.setRoom(selectedRoom);
         plan.setGeneratedAt(LocalDateTime.now());
 
-        // generate simple JSON arrangement
         String json = "{\"students\":" + session.getStudents().stream()
-                .map(s -> "\"" + s.getRollNumber() + "\"").toList() + "}";
+                .map(s -> "\"" + s.getRollNumber() + "\"")
+                .toList() + "}";
+
         plan.setArrangementJson(json);
 
         return planRepo.save(plan);
@@ -47,7 +58,8 @@ public class SeatingPlanServiceImpl implements SeatingPlanService {
 
     @Override
     public SeatingPlan getPlan(Long planId) {
-        return planRepo.findById(planId).orElseThrow(() -> new ApiException("Plan not found"));
+        return planRepo.findById(planId)
+                .orElseThrow(() -> new ApiException("Plan not found"));
     }
 
     @Override
