@@ -16,5 +16,15 @@ public class SwaggerConfig {
                 .servers(List.of(
                         new Server().url("https://9047.32procr.amypo.ai/")
                 ));
+                .components(
+                        new Components()
+                                .addSecuritySchemes(
+                                        "bearerAuth",
+                                        new SecurityScheme()
+                                                .type(SecurityScheme.Type.HTTP)
+                                                .scheme("bearer")
+                                                .bearerFormat("JWT")
+                                )
+                );
         }
 }
