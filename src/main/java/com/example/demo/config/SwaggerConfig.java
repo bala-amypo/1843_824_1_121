@@ -5,16 +5,31 @@ import io.swagger.v3.oas.models.servers.Server;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import java.util.List;
+import io.swagger.v3.oas.models.security.SecurityScheme;
+import io.swagger.v3.oas.models.security.SecurityRequirement;
 
 @Configuration
 public class SwaggerConfig {
 
-    @Bean
+   @Bean
     public OpenAPI customOpenAPI() {
+
         return new OpenAPI()
-                // You need to change the port as per your server
+                // 👉 SERVER CONFIG (change port if needed)
                 .servers(List.of(
-                        new Server().url("https://9047.32procr.amypo.ai/")
-                ));
-        }
+                        new Server().url("https://9099.pro604cr.amypo.ai")
+                ))
+
+                // 👉 JWT SECURITY CONFIG
+                .components(
+                        new Components()
+                                .addSecuritySchemes(
+                                        "bearerAuth",
+                                        new SecurityScheme()
+                                                .type(SecurityScheme.Type.HTTP)
+                                                .scheme("bearer")
+                                                .bearerFormat("JWT")
+                                )
+                );
+    }
 }
