@@ -18,7 +18,7 @@ public class SwaggerConfig {
         return new OpenAPI()
                 // 👉 SERVER CONFIG (change port if needed)
                 .servers(List.of(
-                        new Server().url("https://9047.32procr.amypo.ai/)
+                        new Server().url("https://9047.32procr.amypo.ai/")
                 ))
 
                 // 👉 JWT SECURITY CONFIG
