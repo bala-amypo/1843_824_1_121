@@ -55,14 +55,57 @@
 //         return ResponseEntity.ok(response);
 //     }
 // }
+// package com.example.demo.controller;
+
+// import com.example.demo.dto.AuthRequest;
+// import com.example.demo.dto.AuthResponse;
+// import com.example.demo.service.UserService;
+// import com.example.demo.security.JwtTokenProvider;
+// import org.springframework.security.authentication.AuthenticationManager;
+// import org.springframework.web.bind.annotation.*;
+
+// @RestController
+// @RequestMapping("/auth")
+// public class AuthController {
+
+//     private final UserService userService;
+//     private final AuthenticationManager authenticationManager;
+//     private final JwtTokenProvider jwtProvider;
+
+//     // Make sure constructor matches test
+//     public AuthController(UserService userService,
+//                           AuthenticationManager authenticationManager,
+//                           JwtTokenProvider jwtProvider) {
+//         this.userService = userService;
+//         this.authenticationManager = authenticationManager;
+//         this.jwtProvider = jwtProvider;
+//     }
+
+//     @PostMapping("/login")
+//     public AuthResponse login(@RequestBody AuthRequest request) {
+//         var user = userService.findByEmail(request.getEmail());
+//         String token = jwtProvider.generateToken(user.getId(), user.getEmail(), user.getRole());
+//         return new AuthResponse(token, user.getId(), user.getEmail(), user.getRole());
+//     }
+
+//     @PostMapping("/register")
+//     public AuthResponse register(@RequestBody AuthRequest request) {
+//         var user = userService.register(request.toUser());
+//         String token = jwtProvider.generateToken(user.getId(), user.getEmail(), user.getRole());
+//         return new AuthResponse(token, user.getId(), user.getEmail(), user.getRole());
+//     }
+// }
 package com.example.demo.controller;
 
-import com.example.demo.dto.AuthRequest;
-import com.example.demo.dto.AuthResponse;
-import com.example.demo.service.UserService;
-import com.example.demo.security.JwtTokenProvider;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+
+import com.example.demo.dto.AuthRequest;
+import com.example.demo.dto.RegisterRequest;
+import com.example.demo.model.User;
+import com.example.demo.security.JwtTokenProvider;
+import com.example.demo.service.UserService;
 
 @RestController
 @RequestMapping("/auth")
@@ -70,28 +113,49 @@ public class AuthController {
 
     private final UserService userService;
     private final AuthenticationManager authenticationManager;
-    private final JwtTokenProvider jwtProvider;
+    private final JwtTokenProvider jwtTokenProvider;
 
-    // Make sure constructor matches test
     public AuthController(UserService userService,
                           AuthenticationManager authenticationManager,
-                          JwtTokenProvider jwtProvider) {
+                          JwtTokenProvider jwtTokenProvider) {
         this.userService = userService;
         this.authenticationManager = authenticationManager;
-        this.jwtProvider = jwtProvider;
-    }
-
-    @PostMapping("/login")
-    public AuthResponse login(@RequestBody AuthRequest request) {
-        var user = userService.findByEmail(request.getEmail());
-        String token = jwtProvider.generateToken(user.getId(), user.getEmail(), user.getRole());
-        return new AuthResponse(token, user.getId(), user.getEmail(), user.getRole());
+        this.jwtTokenProvider = jwtTokenProvider;
     }
 
     @PostMapping("/register")
-    public AuthResponse register(@RequestBody AuthRequest request) {
-        var user = userService.register(request.toUser());
-        String token = jwtProvider.generateToken(user.getId(), user.getEmail(), user.getRole());
-        return new AuthResponse(token, user.getId(), user.getEmail(), user.getRole());
+    public User register(@RequestBody RegisterRequest request) {
+
+        User user = userService.register(request.toUser());
+
+        jwtTokenProvider.generateToken(
+                user.getId(),
+                user.getEmail(),
+                user.getRole()
+        );
+
+        return user;
+    }
+
+    @PostMapping("/login")
+    public User login(@RequestBody AuthRequest request) {
+
+        authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        request.getEmail(),
+                        request.getPassword()
+                )
+        );
+
+        // ✅ FIX IS HERE
+        User user = userService.findByEmail(request.getEmail());
+
+        jwtTokenProvider.generateToken(
+                user.getId(),
+                user.getEmail(),
+                user.getRole()
+        );
+
+        return user;
     }
 }
