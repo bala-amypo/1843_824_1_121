@@ -72,7 +72,7 @@ public class ExamRoom {
     private Long id;
 
     @Column(unique = true)
-    private String roomNumber;
+    private String RoomNumber;
 
     private Integer rows;
     private Integer columns;
